@@ -32,12 +32,27 @@ namespace Task2_QuestNarration.Scripts
             //TODO:replace with current episode data from progressController
             //var currentEpisodeId = ProgressController.GetActiveEpisodeId();
             //var episodeData = GetCurrentEpisodeData(currentEpisodeId)
-            var episodeData = GetCurrentEpisodeData(FirstEpisodeID);
+            _currentEpisodeId = FirstEpisodeID;
+            var episodeData = GetCurrentEpisodeData(_currentEpisodeId);
             
             _episodeUIController = new EpisodeUIController(this, _targetTransform, _episodePrefab, _chapterPrefab, episodeData);
             _episodeUIController.SetupView();
         }
 
+        public void SimulateTrigger_Stars_10() => CheckCompletionTrigger("Stars", 10);
+        public void SimulateTrigger_Gems_8() => CheckCompletionTrigger("Gems", 8);
+        public void SimulateTrigger_Keys_5() => CheckCompletionTrigger("Keys", 5);
+
+        private void CheckCompletionTrigger(string action, int count)
+        {
+            var inputTrigger = $"{action}_{count}";
+            foreach (var chapter in GetCurrentEpisodeData(_currentEpisodeId).chapters)
+            {
+                if(chapter.completionTrigger.ToUpper() == inputTrigger.ToUpper())
+                    ChapterCompletedEvent?.Invoke(chapter);
+            }
+        }
+        
         private EpisodeData GetCurrentEpisodeData(string id)
         {
             for (int i = 0; i < _data.episodes.Count; i++)
@@ -47,16 +62,6 @@ namespace Task2_QuestNarration.Scripts
             }
 
             return null;
-        }
-
-        public void SimulateCompletionTrigger(string action, int count)
-        {
-            var inputTrigger = $"{action}_{count}";
-            foreach (var chapter in GetCurrentEpisodeData(_currentEpisodeId).chapters)
-            {
-                if(chapter.completionTrigger.ToUpper() == inputTrigger.ToUpper())
-                    ChapterCompletedEvent?.Invoke(chapter);
-            }
         }
     }
 }
