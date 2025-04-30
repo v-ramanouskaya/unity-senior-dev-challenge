@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public class Dialogue
+public class DialogueData
 {
     public string speaker;
     public string text;

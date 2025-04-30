@@ -4,9 +4,8 @@ using System.Collections.Generic;
 namespace Task2_QuestNarration.Scripts.Data
 {
     [Serializable]
-    public class EpisodeData
+    public class QuestData
     {
-        public string episodeId;
-        public List<ChapterData> chapters;
+        public List<EpisodeData> episodes;
     }
 }

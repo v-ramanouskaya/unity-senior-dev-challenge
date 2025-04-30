@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-[Serializable]
-public class Chapter
+namespace Task2_QuestNarration.Scripts.Data
 {
-    public string chapterId;
-    public string completionTrigger;
-    public List<Dialogue> dialogues;
+    [Serializable]
+    public class ChapterData
+    {
+        public string chapterId;
+        public string completionTrigger;
+        public List<DialogueData> dialogues;
+    }
 }
