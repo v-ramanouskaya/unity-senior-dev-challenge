@@ -34,12 +34,21 @@ namespace Task2_QuestNarration.Scripts.UI
                 
                 _chapterViewList.Add(data.chapterId, view);
             }
+
+            _questManager.ChapterCompletedEvent += UpdateCompletedChapter;
+        }
+
+        private void UpdateCompletedChapter(ChapterData chapterData)
+        {
+            if(_chapterViewList.TryGetValue(chapterData.chapterId, out var view))
+                view.SetIsCompleted(true);
         }
         
-        public void SetChapterCompleted(string chapterId)
+        //TODO: to be used on window Closed/Destroyed/etc, depending on the requirements
+        private void CleanUp()
         {
-            if(_chapterViewList.TryGetValue(chapterId, out var view))
-                view.SetIsCompleted(true);
+            _questManager.ChapterCompletedEvent -= UpdateCompletedChapter;
+            _chapterViewList.Clear();
         }
     }
 }
