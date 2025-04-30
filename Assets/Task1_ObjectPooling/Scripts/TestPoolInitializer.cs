@@ -12,7 +12,7 @@ namespace Task1_ObjectPooling.Scripts
         [SerializeField] private int _spawnRadius = 100;
     
         private GenericObjectPool<TestObject> _objectPool;
-        private List<TestObject> _spawnedObjects;
+        private Stack<TestObject> _spawnedObjects;
         private bool _spawnInProgress;
 
         public void PreparePool()
@@ -24,7 +24,7 @@ namespace Task1_ObjectPooling.Scripts
             }
             
             _objectPool = new GenericObjectPool<TestObject>(_prefab, _parentTransform, _objectCount);
-            _spawnedObjects = new List<TestObject>();
+            _spawnedObjects = new Stack<TestObject>(_objectCount);
         }
 
         public void Simulate()
@@ -59,7 +59,7 @@ namespace Task1_ObjectPooling.Scripts
                 var position = Vector3.zero + new Vector3(x, 0f, z);
 
                 var obj = _objectPool.Get();
-                _spawnedObjects.Add(obj);
+                _spawnedObjects.Push(obj);
                 
                 obj.transform.position = position;
             }
@@ -69,9 +69,7 @@ namespace Task1_ObjectPooling.Scripts
         private void Release()
         {
             for (var i = 0; i < _spawnedObjects.Count; i++)
-                _objectPool.Release(_spawnedObjects[i]);
-            
-            _spawnedObjects.Clear();
+                _objectPool.Release(_spawnedObjects.Pop());
         }
     }
 }
