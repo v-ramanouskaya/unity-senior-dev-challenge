@@ -4,8 +4,55 @@
       "episodeId": "1",
       "chapters": [
         {
-          "chapterId": "A",
-          "completionTrigger": "Collect 10 Stars",
+          "chapterId": "1A",
+          "completionTrigger": "Stars_10",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        },
+        {
+          "chapterId": "1B",
+          "completionTrigger": "Keys_5",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        },
+        {
+          "chapterId": "1C",
+          "completionTrigger": "Gems_8",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        },
+        {
+          "chapterId": "1D",
+          "completionTrigger": "Switches_3",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        },
+        {
+          "chapterId": "1E",
+          "completionTrigger": "Coins_15",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        }
+      ]
+    },
+    {
+      "episodeId": "2",
+      "chapters": [
+        {
+          "chapterId": "2A",
+          "completionTrigger": "Gems_15",
+          "dialogues": [
+            {"speaker":"Dr","text":"…"}
+          ]
+        },
+        {
+          "chapterId": "2B",
+          "completionTrigger": "Doors_3",
           "dialogues": [
             {"speaker":"Dr","text":"…"}
           ]
