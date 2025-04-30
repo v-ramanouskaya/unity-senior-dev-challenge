@@ -1,8 +1,11 @@
 using System;
 
-[Serializable]
-public class Dialogue
+namespace Task2_QuestNarration.Scripts.Data
 {
-    public string speaker;
-    public string text;
+    [Serializable]
+    public class Dialogue
+    {
+        public string speaker;
+        public string text;
+    }
 }
