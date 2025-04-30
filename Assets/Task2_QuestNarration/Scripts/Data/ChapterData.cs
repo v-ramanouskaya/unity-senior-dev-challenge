@@ -1,0 +1,10 @@
+﻿using System;
+using System.Collections.Generic;
+
+[Serializable]
+public class Chapter
+{
+    public string chapterId;
+    public string completionTrigger;
+    public List<Dialogue> dialogues;
+}
