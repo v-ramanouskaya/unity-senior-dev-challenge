@@ -5,15 +5,28 @@ namespace Task1_ObjectPooling.Scripts
 {
     public class GenericObjectPool <T> where T: MonoBehaviour
     {
-        private const int ExpandStepSize = 10;
-            
         private readonly T _poolObject;
         private readonly int _initialSize;
         private readonly Transform _parentTransform;
         private readonly Stack<T> _objectStack;
+        
+        public int Count => _objectStack.Count;
+        
+        public GenericObjectPool(T poolObject, Transform parentTransform, int size)
+        {
+            _poolObject = poolObject;
+            _initialSize = size;
+            _parentTransform = parentTransform;
+            _objectStack = new Stack<T>(size);
+            
+            Prewarm();
+        }
 
         public T Get()
         {
+            if (_objectStack.Count == 0)
+                ExpandPool();
+        
             var obj = _objectStack.Pop();
             obj.gameObject.SetActive(true);
             return obj;
@@ -25,14 +38,17 @@ namespace Task1_ObjectPooling.Scripts
             _objectStack.Push(obj);
         }
 
-        public void Prewarm()
+        private void Prewarm()
         {
             for (var i = 0; i < _initialSize; i++)
-            {
-                var obj = Object.Instantiate(_poolObject, _parentTransform);
-                obj.gameObject.SetActive(false);
-                _objectStack.Push(obj);
-            }
+                ExpandPool();
+        }
+    
+        private void ExpandPool()
+        {
+            var obj = Object.Instantiate(_poolObject, _parentTransform);
+            obj.gameObject.SetActive(false);
+            _objectStack.Push(obj);
         }
     }
 }
