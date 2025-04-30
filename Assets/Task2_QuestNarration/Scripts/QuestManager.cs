@@ -17,7 +17,6 @@ namespace Task2_QuestNarration.Scripts
         private QuestData _data;
         private QuestsDataJsonController _dataController;
         private EpisodeUIController _episodeUIController;
-        private ChapterData _currentChapter;
         private string _currentEpisodeId;
         
         public event Action<ChapterData> ChapterCompletedEvent;
@@ -50,10 +49,14 @@ namespace Task2_QuestNarration.Scripts
             return null;
         }
 
-        public void CheckTrigger(string action, int count)
+        public void SimulateCompletionTrigger(string action, int count)
         {
-            if(true)
-                ChapterCompletedEvent?.Invoke(_currentChapter);
+            var inputTrigger = $"{action}_{count}";
+            foreach (var chapter in GetCurrentEpisodeData(_currentEpisodeId).chapters)
+            {
+                if(chapter.completionTrigger.ToUpper() == inputTrigger.ToUpper())
+                    ChapterCompletedEvent?.Invoke(chapter);
+            }
         }
     }
 }
