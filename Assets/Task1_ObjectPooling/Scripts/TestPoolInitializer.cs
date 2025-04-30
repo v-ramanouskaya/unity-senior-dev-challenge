@@ -63,12 +63,11 @@ namespace Task1_ObjectPooling.Scripts
                 
                 obj.transform.position = position;
             }
-            
         }
 
         private void Release()
         {
-            for (var i = 0; i < _spawnedObjects.Count; i++)
+            while (_spawnedObjects.Count > 0)
                 _objectPool.Release(_spawnedObjects.Pop());
         }
     }
