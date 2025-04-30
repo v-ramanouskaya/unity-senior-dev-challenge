@@ -12,6 +12,7 @@ namespace Task2_QuestNarration.Scripts
         
         [SerializeField] private ChapterUiView _chapterPrefab;
         [SerializeField] private EpisodeUiView _episodePrefab;
+        [SerializeField] private Transform _targetTransform;
         
         private QuestData _data;
         private QuestsDataJsonController _dataController;
@@ -34,7 +35,7 @@ namespace Task2_QuestNarration.Scripts
             //var episodeData = GetCurrentEpisodeData(currentEpisodeId)
             var episodeData = GetCurrentEpisodeData(FirstEpisodeID);
             
-            _episodeUIController = new EpisodeUIController(this,_episodePrefab, _chapterPrefab,episodeData);
+            _episodeUIController = new EpisodeUIController(this, _targetTransform, _episodePrefab, _chapterPrefab, episodeData);
             _episodeUIController.SetupView();
         }
 
