@@ -11,14 +11,15 @@ namespace DefaultNamespace.QuestSystem
 
         public QuestData Data { get; private set; }
 
-        public async void ReadData()
+        public async Task<QuestData>  ReadData()
         {
             var jsonString = await LoadJsonStringAsync();
 
             if (string.IsNullOrEmpty(jsonString))
-                return;
+                return null;
 
-            ReadContentData(jsonString);
+            Data = JsonUtility.FromJson<QuestData>(jsonString);
+            return Data;
         }
         
         private async Task<string> LoadJsonStringAsync()
@@ -34,11 +35,6 @@ namespace DefaultNamespace.QuestSystem
                 Debug.LogError($"Failed to load JSON file: {ContentFileName}");
 
             return textAsset.text;
-        }
-
-        private void ReadContentData(string jsonString)
-        { 
-            Data = JsonUtility.FromJson<QuestData>(jsonString);
         }
     }
 }

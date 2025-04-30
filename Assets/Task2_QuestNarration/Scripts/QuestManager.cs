@@ -8,26 +8,34 @@ namespace Task2_QuestNarration.Scripts
 {
     public class QuestManager: MonoBehaviour
     {
-        private const string ContentFileName = "Data";
-        private QuestData _data;
-
-        public event Action<ChapterData> ChapterCompletedEvent;
+        private const string FirstEpisodeID = "1";
         
+        [SerializeField] private ChapterUiView _chapterPrefab;
+        [SerializeField] private EpisodeUiView _episodePrefab;
+        
+        private QuestData _data;
         private QuestsDataJsonController _dataController;
-        private QuestsUIController _questsUIController;
+        private EpisodeUIController _episodeUIController;
         private ChapterData _currentChapter;
         private string _currentEpisodeId;
+        
+        public event Action<ChapterData> ChapterCompletedEvent;
 
-        public void Awake()
+        public async void Awake()
         {
             _dataController = new QuestsDataJsonController();
+            _data = await _dataController.ReadData();
             
-            //TODO: assumed there should be some progressController to get Active episode
+            if(_data == null)
+                return;
+
+            //TODO:replace with current episode data from progressController
             //var currentEpisodeId = ProgressController.GetActiveEpisodeId();
             //var episodeData = GetCurrentEpisodeData(currentEpisodeId)
+            var episodeData = GetCurrentEpisodeData(FirstEpisodeID);
             
-            var episodeData = GetCurrentEpisodeData("A");
-            _questsUIController = new QuestsUIController(new QuestsUIView(),episodeData);
+            _episodeUIController = new EpisodeUIController(this,_episodePrefab, _chapterPrefab,episodeData);
+            _episodeUIController.SetupView();
         }
 
         private EpisodeData GetCurrentEpisodeData(string id)

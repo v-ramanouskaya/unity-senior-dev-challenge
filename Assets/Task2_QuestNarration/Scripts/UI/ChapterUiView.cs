@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Task2_QuestNarration.Scripts.UI
 {
-    public class ChapterView : MonoBehaviour
+    public class ChapterUiView : MonoBehaviour
     {
         [SerializeField] private GameObject _completedView;
         [SerializeField] private GameObject _regularView;
